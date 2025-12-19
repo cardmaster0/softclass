@@ -1,13 +1,20 @@
 <?php
 session_start();
-$username = $_SESSION['name'];
-if (isset($_SESSION['id'])) {//ログインしているとき
-    $msg = 'こんにちは' . htmlspecialchars($username, \ENT_QUOTES, 'UTF-8') . 'さん';
-    $link = '<a href="logout.php">ログアウト</a>';
-} else {//ログインしていない時
-    $msg = 'ログインしていません';
-    $link = '<a href="login_form.php">ログイン</a>';
+if (!isset($_SESSION['id'])) {
+    header("Location: login_form.php");
+    exit();
 }
 ?>
-<h1><?php echo $msg; ?></h1>
-<?php echo $link; ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ホーム</title>
+    </head>
+    <body>
+        <h1>ホーム画面</h1>
+        <p>ようこそ、<?php echo $_SESSION['name']; ?> さん!</p>
+        <a href="reserve.php">教室予約</a><br>
+        <a href="reservecheck.php">予約確認</a><br>
+        <a href="logout.php">サインアウト</a><br>
+    </body>
+</html>
