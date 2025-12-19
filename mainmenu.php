@@ -13,7 +13,7 @@ if (!isset($_SESSION['id'])) {
     <body>
         <h1>ホーム画面</h1>
         <p>ようこそ、<?php echo $_SESSION['name']; ?> さん!</p>
-        <a href="reserve.php">教室予約</a><br>
+        <a href="dayselect.php">教室予約</a><br>
         <a href="reservecheck.php">予約確認</a><br>
         <a href="logout.php">サインアウト</a><br>
     </body>
