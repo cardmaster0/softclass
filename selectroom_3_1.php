@@ -16,10 +16,10 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
     <label>教室</label>
     <select name="room" required>
       <option value="" selected disabled>教室を選択</option>
-      <option value="ルンルン">ルンルン</option>
-      <option value="A102">A102</option>
-      <option value="B201">B201</option>
-      <option value="B202">B202</option>
+      <option value="研究室">研究室</option>
+      <option value="S棟">AS棟</option>
+      <option value="G30">G30</option>
+      <option value="S21">S21</option>
     </select>
 
     <button type="submit">時間選択へ</button>
