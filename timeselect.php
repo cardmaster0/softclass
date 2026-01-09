@@ -1,4 +1,5 @@
 <?php
+session_start();
 $date = $_GET['date'] ?? '';
 $room = $_GET['room'] ?? '';
 if ($date === '' || $room === '') { echo "日付または教室が未選択です。"; exit; }
@@ -48,3 +49,4 @@ for ($h = 0; $h <= 23; $h++) {
   <p>注意：終了は開始より後の時刻を選んでください（15分単位）。</p>
 </body>
 </html>
+
