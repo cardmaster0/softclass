@@ -7,7 +7,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
 
 // 15分刻みの時刻を生成（ここでは 00:00〜23:45）
 $times = [];
-for ($h = 0; $h <= 23; $h++) {
+for ($h = 8; $h <= 20; $h++) {
   for ($m = 0; $m <= 45; $m += 15) {
     $times[] = sprintf("%02d:%02d", $h, $m);
   }
@@ -49,4 +49,5 @@ for ($h = 0; $h <= 23; $h++) {
   <p>注意：終了は開始より後の時刻を選んでください（15分単位）。</p>
 </body>
 </html>
+
 
