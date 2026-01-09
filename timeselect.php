@@ -5,7 +5,7 @@ $room = $_GET['room'] ?? '';
 if ($date === '' || $room === '') { echo "日付または教室が未選択です。"; exit; }
 function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
 
-// 15分刻みの時刻を生成（ここでは 00:00〜23:45）
+// 15分刻みの時刻を生成（ここでは 8:00〜20:45）
 $times = [];
 for ($h = 8; $h <= 20; $h++) {
   for ($m = 0; $m <= 45; $m += 15) {
@@ -45,10 +45,9 @@ for ($h = 8; $h <= 20; $h++) {
 
     <button type="submit">予約へ進む</button>
   </form>
-
   <p>注意：終了は開始より後の時刻を選んでください（15分単位）。</p>
+  <a href="selectroom.php?date=<?= urlencode($date) ?>">
+    教室選択へ戻る
+    </a>
 </body>
 </html>
-
-
-
