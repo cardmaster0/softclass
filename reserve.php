@@ -185,8 +185,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dbError) {
 
 <?php elseif ($done): ?>
   <h3>予約を登録しました</h3>
-  <p><a href="home.php">ホームに戻る</a></p>
-  <p><a href="my_reservations.php">予約一覧を見る</a></p>
+  <p><a href="mainmenu.php">ホームに戻る</a></p>
+  <p><a href="reservecheck.php">予約一覧を見る</a></p>
 
 <?php else: ?>
   <?php if ($insertMsg !== ''): ?>
@@ -219,3 +219,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dbError) {
 
 </body>
 </html>
+
