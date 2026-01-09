@@ -16,7 +16,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
     <label>教室</label>
     <select name="room" required>
       <option value="" selected disabled>教室を選択</option>
-      <option value="A101">A101</option>
+      <option value="ルンルン">ルンルン</option>
       <option value="A102">A102</option>
       <option value="B201">B201</option>
       <option value="B202">B202</option>
@@ -24,5 +24,6 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
 
     <button type="submit">時間選択へ</button>
   </form>
+  <a href="dayselect.php">日付選択に戻る</a>
 </body>
 </html>
