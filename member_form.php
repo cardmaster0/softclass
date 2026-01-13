@@ -41,10 +41,9 @@ if($count < 1){
   $row = $stmh->fetch(PDO::FETCH_ASSOC);  
 ?>
 <form name="form1" method="post" action="list.php">
-番号：<?=htmlspecialchars($row['id'], ENT_QUOTES)?><br>
-氏：<input type="text" name="last_name" value="<?=htmlspecialchars($row['last_name'], ENT_QUOTES)?>"><br>
-名：<input type="text" name="first_name" value="<?=htmlspecialchars($row['first_name'], ENT_QUOTES)?>"><br>
-年齢：<input type="text" name="age" value="<?=htmlspecialchars($row['age'], ENT_QUOTES)?>"><br>
+AXIA番号：<?=htmlspecialchars($row['id'], ENT_QUOTES)?><br>
+名前：<input type="text" name="name" value="<?=htmlspecialchars($row['name'], ENT_QUOTES)?>"><br>
+パスワード：<input type="text" name="pass" value="<?=htmlspecialchars($row['pass'], ENT_QUOTES)?>"><br>
 <input type="hidden" name="action" value="update">
 <input type="submit" value="更新">
 </form>
