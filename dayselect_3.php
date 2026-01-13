@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,7 +11,7 @@
 <body>
   <form action="selectroom.php" method="get">
     <label>日付</label>
-    <input type="date" name="date" required />
+    <input type="date" name="date" required /><!--カレンダーを作ってるさらに入力まで-->
     <button type="submit">教室選択へ</button>
   </form>
 </body>
