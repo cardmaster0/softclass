@@ -26,16 +26,34 @@ if (!isset($_SESSION['id'])) {
 require_once("MYDB.php");
 $pdo = db_connect();
 
+// 削除処理
+if(isset($_GET['action']) && $_GET['action'] == 'delete' && $_GET['num'] > 0 ){
+    try {
+      $pdo->beginTransaction();
+      $num = $_GET['num'];
+      $sql = "DELETE FROM reservation WHERE num = :num";
+      $stmh = $pdo->prepare($sql);
+      $stmh->bindValue(':num', $num, PDO::PARAM_INT );
+      $stmh->execute();
+      $pdo->commit();
+      print "データを" . $stmh->rowCount() . "件、削除しました。<br>";
+
+    } catch (PDOException $Exception) {
+      $pdo->rollBack();
+      print "エラー：" . $Exception->getMessage();
+    }
+}
+
 // 検索および現在の全データを表示します
 try {
   if(isset($_POST['search_key']) && $_POST['search_key'] != ""){
     $search_key = $_POST['search_key']; 
-    $sql= "SELECT * FROM reservation WHERE date = $search_key";
+    $sql= "SELECT num,date,room,start_time,end_time FROM reservation WHERE date = $search_key";
     $stmh = $pdo->prepare($sql);
-    $stmh->bindValue(':date',  $search_key, PDO::PARAM_INT );
+    $stmh->bindValue(':date',  $search_key, PDO::PARAM_STR);
     $stmh->execute();
   }else{
-    $sql= "SELECT * FROM reservation";
+    $sql= "SELECT num,date,room,start_time,end_time FROM reservation";
     $stmh = $pdo->query($sql);
   }
   $count = $stmh->rowCount();
@@ -52,19 +70,18 @@ if($count < 1){
 ?>
 <table border="1">
 <tbody>
-<tr><th>予約番号</th><th>日にち</th><th>開始時刻</th><th>教室</th><th>id</th><th>終了時刻</th><th>&nbsp;</th><th>&nbsp;</th></tr>
+<tr><th>予約番号</th><th>日にち</th><th>教室</th><th>開始時刻</th><th>終了時刻</th><th>&nbsp;</th><th>&nbsp;</th></tr>
 <?php
   while ($row = $stmh->fetch(PDO::FETCH_ASSOC)) {
 ?>
 <tr>
 <td><?=htmlspecialchars($row['num'], ENT_QUOTES)?></td>
 <td><?=htmlspecialchars($row['date'], ENT_QUOTES)?></td>
-<td><?=htmlspecialchars($row['start_time'], ENT_QUOTES)?></td>
 <td><?=htmlspecialchars($row['room'], ENT_QUOTES)?></td>
-<td><?=htmlspecialchars($row['id'], ENT_QUOTES)?></td>
+<td><?=htmlspecialchars($row['start_time'], ENT_QUOTES)?></td>
 <td><?=htmlspecialchars($row['end_time'], ENT_QUOTES)?></td>
 <td><a href=updateform.php?id=<?=htmlspecialchars($row['id'], ENT_QUOTES)?>>更新</a></td>
-<td><a href=list.php?action=delete&id=<?=htmlspecialchars($row['id'], ENT_QUOTES)?>>削除</a></td>
+<td><a href=reservecheck.php?action=delete&num=<?=htmlspecialchars($row['num'], ENT_QUOTES)?>>削除</a></td>
 </tr>
 <?php
 }    
