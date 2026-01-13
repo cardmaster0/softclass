@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $date = $_GET['date'] ?? '';
 if ($date === '') { echo "日付が未選択です。"; exit; }
 function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
