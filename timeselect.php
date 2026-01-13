@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['id'])) {
+    header("Location: login_form.php");
     exit();
 }
 
@@ -56,4 +56,5 @@ for ($h = 8; $h <= 20; $h++) {
     </a>
 </body>
 </html>
+
 
