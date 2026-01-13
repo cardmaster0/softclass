@@ -65,7 +65,7 @@ $end_ts   = strtotime("$date $end");
 $now = time();
 
 if($start_ts<$now){
-    $err = "過去の日時は予約できません！！"
+    $err = "過去の日時は予約できません！！";
 }
 
 if ($start_ts === false || $end_ts === false) {
@@ -228,6 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dbError) {
 
 </body>
 </html>
+
 
 
 
