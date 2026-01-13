@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
+if (!isset($_SESSION['id'])) {
+    header("Location: login_form.php");
     exit();
 }
 
@@ -228,6 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dbError) {
 
 </body>
 </html>
+
 
 
 
