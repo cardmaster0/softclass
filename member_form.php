@@ -43,7 +43,6 @@ if($count < 1){
 <form name="form1" method="post" action="list.php">
 AXIA番号：<?=htmlspecialchars($row['id'], ENT_QUOTES)?><br>
 名前：<input type="text" name="name" value="<?=htmlspecialchars($row['name'], ENT_QUOTES)?>"><br>
-パスワード：<input type="text" name="pass" value="<?=htmlspecialchars($row['pass'], ENT_QUOTES)?>"><br>
 <input type="hidden" name="action" value="update">
 <input type="submit" value="更新">
 </form>
