@@ -62,6 +62,11 @@ if (!empty($missing)) {
 // ---------- 時刻の妥当性チェック ----------
 $start_ts = strtotime("$date $start");
 $end_ts   = strtotime("$date $end");
+$now = time();
+
+if($start_ts<$now){
+    $err = "過去の日時は予約できません！！"
+}
 
 if ($start_ts === false || $end_ts === false) {
   $err = "日付または時刻形式が不正です";
@@ -223,5 +228,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dbError) {
 
 </body>
 </html>
+
 
 
