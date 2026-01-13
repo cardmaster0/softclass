@@ -22,7 +22,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
     <select name="room" required>
       <option value="" selected disabled>教室を選択</option>
       <option value="研究室">研究室</option>
-      <option value="S棟">AS棟</option>
+      <option value="S棟">S棟</option>
       <option value="G30">G30</option>
       <option value="S21">S21</option>
     </select>
