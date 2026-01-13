@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $date = $_GET['date'] ?? '';
 $room = $_GET['room'] ?? '';
 if ($date === '' || $room === '') { echo "日付または教室が未選択です。"; exit; }
@@ -51,3 +56,4 @@ for ($h = 8; $h <= 20; $h++) {
     </a>
 </body>
 </html>
+
