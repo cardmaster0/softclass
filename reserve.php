@@ -1,6 +1,10 @@
 <?php
-// reserve.php
 session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit();
+}
+
 
 function h($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 
@@ -219,4 +223,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dbError) {
 
 </body>
 </html>
+
 
