@@ -9,7 +9,14 @@ if (!isset($_SESSION['id']) || ($_SESSION['role'] ?? '') !== 'admin') {
 <html>
 <head><meta charset="UTF-8"><title>管理者画面</title></head>
 <body>
-<h1>管理者メニュー</h1>
+
+<hr>
+管理者メニュー
+<hr>
+
+<form name="form1" method="post" action="admin_dashboard.php">
+日付：<input type="date" name="search_key"><input type="submit" value="検索する">
+</form>
 
 <?php
 require_once("MYDB.php");
@@ -37,7 +44,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'delete' && $_GET['num'] > 0 ){
 try {
   if(isset($_POST['search_key']) && $_POST['search_key'] != ""){
     $search_key = $_POST['search_key']; 
-    $sql= "SELECT num,date,room,start_time,end_time,id FROM reservation　AND date = :date";
+    $sql= "SELECT num,date,room,start_time,end_time,id FROM reservation WHERE date = :date";
     $stmh = $pdo->prepare($sql);
     $stmh->bindValue(':date',  $search_key, PDO::PARAM_STR);
     $stmh->execute();
@@ -70,7 +77,7 @@ if($count < 1){
 <td><?=htmlspecialchars($row['start_time'], ENT_QUOTES)?></td>
 <td><?=htmlspecialchars($row['end_time'], ENT_QUOTES)?></td>
 <td><?=htmlspecialchars($row['id'], ENT_QUOTES)?></td>
-<td><a href=reservecheck.php?action=delete&num=<?=htmlspecialchars($row['num'], ENT_QUOTES)?>>削除</a></td>
+<td><a href=admin_dashboard.php?action=delete&num=<?=htmlspecialchars($row['num'], ENT_QUOTES)?>>削除</a></td>
 </tr>
 <?php
 }    
