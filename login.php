@@ -21,9 +21,9 @@ if (password_verify($_POST['pass'], $member['pass'])) {
     $_SESSION['id'] = $member['id'];
     $_SESSION['name'] = $member['name'];
     $msg = 'ログインしました。';
-    $link = '<a href="index.php">ホーム</a>';
+    $link = '<a href="mainmenu.php">ホーム</a>';
 } else {
-    $msg = 'メールアドレスもしくはパスワードが間違っています。';
+    $msg = 'AXIAアカウントもしくはパスワードが間違っています。';
     $link = '<a href="login_form.php">戻る</a>';
 }
 ?>

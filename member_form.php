@@ -39,7 +39,7 @@ try {
 [ <a href="mainmenue.php">戻る</a> ]
 <br>
 
-<form method="post" action="member_update.php">
+<form method="post" action="member.php">
   ID：<?= h($row['id']) ?><br>
   名前：<input type="text" name="name" value="<?= h($row['name']) ?>" required><br>
 

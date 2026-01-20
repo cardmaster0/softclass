@@ -48,7 +48,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'delete' && $_GET['num'] > 0 ){
 try {
   if(isset($_POST['search_key']) && $_POST['search_key'] != ""){
     $search_key = $_POST['search_key']; 
-    $sql= "SELECT num,date,room,start_time,end_time FROM reservation WHERE date = $search_key";
+    $sql= "SELECT num,date,room,start_time,end_time,id FROM reservation WHERE date = date";
     $stmh = $pdo->prepare($sql);
     $stmh->bindValue(':date',  $search_key, PDO::PARAM_STR);
     $stmh->execute();
