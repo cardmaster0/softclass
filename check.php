@@ -21,7 +21,7 @@ $currentUser = $_SESSION['user'];
 
 // SQL: ログインユーザーの予約だけ取得
 $stmt = $conn->prepare("SELECT id, classroom, reserved_by, date, time 
-                        FROM reservations 
+                        FROM reservation 
                         WHERE reserved_by = ? 
                         ORDER BY date, time");
 $stmt->bind_param("s", $currentUser);
