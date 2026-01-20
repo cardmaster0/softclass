@@ -36,7 +36,7 @@ try {
 </head>
 <body>
 <hr>更新画面<hr>
-[ <a href="mainmenue.php">戻る</a> ]
+[ <a href="mainmenu.php">戻る</a> ]
 <br>
 
 <form method="post" action="member.php">

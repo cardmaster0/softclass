@@ -48,13 +48,16 @@ if(isset($_GET['action']) && $_GET['action'] == 'delete' && $_GET['num'] > 0 ){
 try {
   if(isset($_POST['search_key']) && $_POST['search_key'] != ""){
     $search_key = $_POST['search_key']; 
-    $sql= "SELECT num,date,room,start_time,end_time,id FROM reservation WHERE date = date";
+    $sql= "SELECT num,date,room,start_time,end_time FROM reservation WHERE id = :id AND date = :date";
     $stmh = $pdo->prepare($sql);
+    $stmh->bindValue(':id',  $_SESSION['id'], PDO::PARAM_STR);
     $stmh->bindValue(':date',  $search_key, PDO::PARAM_STR);
     $stmh->execute();
   }else{
-    $sql= "SELECT num,date,room,start_time,end_time FROM reservation";
-    $stmh = $pdo->query($sql);
+    $sql= "SELECT num,date,room,start_time,end_time FROM reservation WHERE id = :id";
+    $stmh = $pdo->prepare($sql);
+    $stmh->bindValue(':id',  $_SESSION['id'], PDO::PARAM_STR);
+    $stmh->execute();
   }
   $count = $stmh->rowCount();
   print "検索結果は" . $count . "件です。<br>";
@@ -70,7 +73,7 @@ if($count < 1){
 ?>
 <table border="1">
 <tbody>
-<tr><th>予約番号</th><th>日にち</th><th>教室</th><th>開始時刻</th><th>終了時刻</th><th>&nbsp;</th><th>&nbsp;</th></tr>
+<tr><th>予約番号</th><th>日にち</th><th>教室</th><th>開始時刻</th><th>終了時刻</th><th>&nbsp;</th></tr>
 <?php
   while ($row = $stmh->fetch(PDO::FETCH_ASSOC)) {
 ?>
@@ -80,7 +83,6 @@ if($count < 1){
 <td><?=htmlspecialchars($row['room'], ENT_QUOTES)?></td>
 <td><?=htmlspecialchars($row['start_time'], ENT_QUOTES)?></td>
 <td><?=htmlspecialchars($row['end_time'], ENT_QUOTES)?></td>
-<td><a href=updateform.php?id=<?=htmlspecialchars($row['id'], ENT_QUOTES)?>>更新</a></td>
 <td><a href=reservecheck.php?action=delete&num=<?=htmlspecialchars($row['num'], ENT_QUOTES)?>>削除</a></td>
 </tr>
 <?php
