@@ -18,5 +18,8 @@
     <input type="date" name="date" required /><!--カレンダーを作ってるさらに入力まで-->
     <button type="submit">教室選択へ</button>
   </form>
+
+  <p><a href="mainmenu.php">メニューへ戻る</a></p>
+
 </body>
 </html>

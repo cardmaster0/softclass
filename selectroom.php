@@ -30,6 +30,10 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
     </select>
 
     <button type="submit">時間選択へ</button>
+
   </form>
+
+  <p><a href="dayselect.php">日付選択へ戻る</a></p>
+
 </body>
 </html>

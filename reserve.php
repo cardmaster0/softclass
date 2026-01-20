@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dbError) {
 
     // 重複（時間帯の重なり）チェック
     // 既存.start_time < 新.end_time AND 既存.end_time > 新.start_time
-    $sqlDup = "
+    $sqlDupRoom = "
       SELECT COUNT(*) AS cnt
       FROM reservation
       WHERE date = :date
@@ -125,7 +125,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dbError) {
         AND start_time < :new_end
         AND end_time > :new_start
     ";
-    $st = $pdo->prepare($sqlDup);
+    $sqlDupUser = "
+      SELECT COUNT(*) AS cnt
+      FROM reservation
+      WHERE date = :date
+        AND id = :id
+        AND start_time < :new_end
+        AND end_time > :new_start
+    ";
+    $st = $pdo->prepare($sqlDupRoom);
     $st->execute([
       ':date' => $date,
       ':room' => $room,
@@ -133,11 +141,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dbError) {
       ':new_end' => $end,
     ]);
 
-    $dup = (int)($st->fetch()['cnt'] ?? 0);
+    $dupRoom = (int)($st->fetch()['cnt'] ?? 0);
+    
+    $st = $pdo->prepare($sqlDupUser);
+    $st->execute([
+      ':date' => $date,
+      ':id' => $userId,
+      ':new_start' => $start,
+      ':new_end' => $end,
+    ]);
 
-    if ($dup > 0) {
+    $dupUser = (int)($st->fetch()['cnt'] ?? 0);
+
+    if ($dupRoom > 0) {
       $pdo->rollBack();
       $insertMsg = "その時間帯は既に予約されています。別の時間を選んでください。";
+    } else if ($dupUser > 0) {
+      $pdo->rollBack();
+      $insertMsg = "あなたは同じ時間帯に別の教室を予約しています。";
     } else {
       // INSERT（num は auto_increment なので指定しない）
       $sqlIns = "
@@ -214,6 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dbError) {
 
 <hr>
 
+<?php if (!$done): ?>
 <p>
   <a href="timeselect.php?date=<?= urlencode($date) ?>&room=<?= urlencode($room) ?>">
     時間選択へ戻る
@@ -225,6 +247,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dbError) {
     教室選択へ戻る
   </a>
 </p>
+
+<p>
+  <a href="dayselect.php">
+    日付選択へ戻る
+  </a>
+</p>
+<?php endif; ?>
 
 </body>
 </html>
