@@ -14,5 +14,6 @@
             </div>
             <input type="submit" value="ログイン">
         </form>
+        <p><a href="signup.php">新規登録ページ</a></p>
     </body>
 </html>
