@@ -18,6 +18,15 @@ if (!isset($_SESSION['id']) || ($_SESSION['role'] ?? '') !== 'admin') {
 require_once("MYDB.php");
 $pdo = db_connect();
 
+if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id']) && $_GET['id'] !== '') {
+  $id = (string)$_GET['id'];
+
+  // 事故防止：自分自身は削除不可（必要なら）
+  if ($id === ($_SESSION['id'] ?? '')) {
+    print "自分自身は削除できません。<br>";
+  } else {
+    try {
+      $pdo->beginTransaction();
 // 削除処理
 if(isset($_GET['action']) && $_GET['action'] == 'delete' && $_GET['id'] > 0 ){
     try {
