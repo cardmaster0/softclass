@@ -89,6 +89,9 @@ if($count < 1){
 
 ?>
 
-<a href="mainmenu.php">戻る</a>
+<p><a href="admin_member.php">会員一覧</a></p>
+
+<p><a href="mainmenu.php">利用者メニューへ戻る</a></p>
+
 </body>
 </html>
