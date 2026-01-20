@@ -19,20 +19,39 @@ require_once("MYDB.php");
 $pdo = db_connect();
 
 // 削除処理
-if(isset($_GET['action']) && $_GET['action'] == 'delete' && $_GET['id'] > 0 ){
+// 削除処理（ユーザー削除＋予約削除）
+if (
+    isset($_GET['action'], $_GET['id'])
+    && $_GET['action'] === 'delete'
+    && $_GET['id'] !== ''
+) {
     try {
-      $pdo->beginTransaction();
-      $id = $_GET['id'];
-      $sql = "DELETE FROM member WHERE id = :id";
-      $stmh = $pdo->prepare($sql);
-      $stmh->bindValue(':id', $id, PDO::PARAM_INT );
-      $stmh->execute();
-      $pdo->commit();
-      print "データを" . $stmh->rowCount() . "件、削除しました。<br>";
+        $pdo->beginTransaction();
+
+        $id = (string)$_GET['id']; // AXIAアカウント等の文字列想定
+
+        // ① そのユーザーの予約をすべて削除（reservation.id）
+        $sql1 = "DELETE FROM reservation WHERE id = :id";
+        $st1 = $pdo->prepare($sql1);
+        $st1->bindValue(':id', $id, PDO::PARAM_STR);
+        $st1->execute();
+        $deletedReserve = $st1->rowCount();
+
+        // ② ユーザー削除（member.id）
+        $sql2 = "DELETE FROM member WHERE id = :id";
+        $st2 = $pdo->prepare($sql2);
+        $st2->bindValue(':id', $id, PDO::PARAM_STR);
+        $st2->execute();
+        $deletedMember = $st2->rowCount();
+
+        $pdo->commit();
+
+        print "ユーザーを {$deletedMember} 件削除しました。<br>";
+        print "関連する予約を {$deletedReserve} 件削除しました。<br>";
 
     } catch (PDOException $Exception) {
-      $pdo->rollBack();
-      print "エラー：" . $Exception->getMessage();
+        if ($pdo->inTransaction()) $pdo->rollBack();
+        print "エラー：" . $Exception->getMessage();
     }
 }
 
